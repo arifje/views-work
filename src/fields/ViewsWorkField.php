@@ -18,8 +18,6 @@ use twentyfourhoursmedia\viewswork\assetbundles\viewsworkfield\ViewsWorkFieldAss
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
-use craft\helpers\Db;
-use yii\db\Schema;
 use craft\helpers\Json;
 
 /**
@@ -56,9 +54,19 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
         return Craft::t('views-work', 'ViewsWorkField');
     }
 
-    public static function hasContentColumn(): bool
+    public static function icon(): string
     {
-        return false;
+        return 'eye';
+    }
+
+    public static function phpType(): string
+    {
+        return ViewRecording::class;
+    }
+
+    public static function dbType(): array|string|null
+    {
+        return null;
     }
 
     // Public Methods
@@ -66,21 +74,22 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
 
     public function getPreviewHtml(mixed $value, ElementInterface $element): string
     {
-        // Render the settings template
-        return Craft::$app->getView()->renderTemplate(
-            'views-work/_components/fields/ViewsWorkField_column',
-            [
-                'recording' => $this->getRecord($element),
-            ]
-        );
+        return $this->renderPreviewHtml($this->getRecord($element));
     }
+
+    public function previewPlaceholderHtml(mixed $value, ?ElementInterface $element): string
+    {
+        return $this->renderPreviewHtml($element ? $this->getRecord($element) : new ViewRecording());
+    }
+
     /**
      * see getPreviewHtml()
      *
      * @deprecated
      */
-    public function getTableAttributeHtml($value, ElementInterface $element): string {
-        return $this.$this->getPreviewHtml($value,$element);
+    public function getTableAttributeHtml($value, ElementInterface $element): string
+    {
+        return $this->getPreviewHtml($value, $element);
     }
 
     /**
@@ -116,7 +125,7 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
      *
      * @return mixed The prepared field value
      */
-    public function normalizeValue(mixed $value, ?\craft\base\ElementInterface $element = null): mixed
+    public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
         if ($element) {
             return $this->getRecord($element);
@@ -340,7 +349,7 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
      */
-    public function getInputHtml(mixed $value, ?\craft\base\ElementInterface $element = null): string
+    public function getInputHtml(mixed $value, ?ElementInterface $element = null): string
     {
         // Register our asset bundle
         Craft::$app->getView()->registerAssetBundle(ViewsWorkFieldAsset::class);
@@ -378,9 +387,22 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
      * @param ElementInterface $element
      * @return ViewRecording
      */
-    public function getRecord(ElementInterface $element)
+    public function getRecord(?ElementInterface $element = null): ViewRecording
     {
-        return ViewsWork::$plugin->viewsWork->getRecording($element);
+        if ($element === null) {
+            return new ViewRecording();
+        }
 
+        return ViewsWork::$plugin->viewsWork->getRecording($element);
+    }
+
+    private function renderPreviewHtml(ViewRecording $recording): string
+    {
+        return Craft::$app->getView()->renderTemplate(
+            'views-work/_components/fields/ViewsWorkField_column',
+            [
+                'recording' => $recording,
+            ]
+        );
     }
 }

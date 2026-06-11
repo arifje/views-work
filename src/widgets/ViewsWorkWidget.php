@@ -80,9 +80,17 @@ class ViewsWorkWidget extends Widget
     /**
      * @inheritdoc
      */
-    public static function iconPath()
+    public static function icon(): ?string
     {
         return Craft::getAlias("@twentyfourhoursmedia/viewswork/assetbundles/viewsworkwidgetwidget/dist/img/ViewsWorkWidget-icon.svg");
+    }
+
+    /**
+     * @deprecated in Craft 5. Use icon() instead.
+     */
+    public static function iconPath()
+    {
+        return self::icon();
     }
 
     /**
@@ -178,7 +186,7 @@ class ViewsWorkWidget extends Widget
                 'weekly' => $weekly ? $weekly->all() : null,
                 'today' => $daily ? $daily->all() : null,
 
-                'section' => is_numeric($section) ? Craft::$app->sections->getSectionById($section) : null
+                'section' => is_numeric($section) ? Craft::$app->entries->getSectionById($section) : null
 
             ]
         );

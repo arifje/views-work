@@ -12,6 +12,7 @@ namespace twentyfourhoursmedia\viewswork;
 
 use Craft;
 use craft\base\Element;
+use craft\base\Model;
 use craft\base\Plugin;
 use craft\elements\db\ElementQuery;
 use craft\elements\Entry;
@@ -247,7 +248,7 @@ class ViewsWork extends Plugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel(): ?craft\base\Model
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }

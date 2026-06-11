@@ -40,9 +40,17 @@ class ViewedNowWidget extends Widget
     /**
      * @inheritdoc
      */
-    public static function iconPath()
+    public static function icon(): ?string
     {
         return Craft::getAlias("@twentyfourhoursmedia/viewswork/assetbundles/viewsworkwidgetwidget/dist/img/ViewsWorkWidget-icon.svg");
+    }
+
+    /**
+     * @deprecated in Craft 5. Use icon() instead.
+     */
+    public static function iconPath()
+    {
+        return self::icon();
     }
 
     /**
