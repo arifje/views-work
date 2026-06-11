@@ -1,4 +1,4 @@
-# Views Work plugin for Craft CMS >= 4.x
+# Views Work plugin for Craft CMS 5.x
 
 *ABANDONED* Unfortunately, we are not able to support this plugin anymore.
 Feel free to fork this code for your own purposes.
@@ -6,7 +6,8 @@ We changed the license to MIT license jan 5th 2024 so there are no license limit
 
 ----
 
-Views work 2.x is compatible with Craft CMS version 4.0 or higher.
+This branch is compatible with Craft CMS 5 only. It is not intended to
+install or run on Craft CMS 4.
 
 ---
 Please view the full documentation at [io.24hoursmedia.com](https://io.24hoursmedia.com/views-work)!
@@ -67,4 +68,3 @@ The cron checks wether it is the first day of the week or month before resetting
 Brought to you by [24hoursmedia](https://www.24hoursmedia.com)
 
 Logo by https://www.iconfinder.com/ReactiveDoodlesApp
-
