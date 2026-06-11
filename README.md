@@ -4,6 +4,9 @@
 Feel free to fork this code for your own purposes.
 We changed the license to MIT license jan 5th 2024 so there are no license limitations.
 
+This fork updates the abandoned plugin for Craft CMS 5 compatibility. It has
+not been tested yet.
+
 ----
 
 This branch is compatible with Craft CMS 5 only. It is not intended to
