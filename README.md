@@ -40,6 +40,28 @@ Get popular items:
 
 ```
 
+## GraphQL
+
+Views Work fields expose their counters in Craft's GraphQL schema. Add a
+Views Work field to an entry type, make sure the entry type is available to
+your GraphQL schema, and query the field by its handle:
+
+```graphql
+query ViewsWorkEntries {
+  entries(section: "articles") {
+    ... on articles_Entry {
+      title
+      viewsWork {
+        total
+        thisMonth
+        thisWeek
+        today
+      }
+    }
+  }
+}
+```
+
 ## Resetting view counters
 
 Some view counters need to be periodically reset (such as the daily and

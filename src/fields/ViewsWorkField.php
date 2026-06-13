@@ -19,6 +19,8 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\helpers\Json;
+use GraphQL\Type\Definition\Type;
+use twentyfourhoursmedia\viewswork\gql\types\ViewRecordingType;
 
 /**
  * ViewsWorkField Field
@@ -67,6 +69,11 @@ class ViewsWorkField extends Field implements PreviewableFieldInterface
     public static function dbType(): array|string|null
     {
         return null;
+    }
+
+    public function getContentGqlType(): Type|array
+    {
+        return ViewRecordingType::getType();
     }
 
     // Public Methods
